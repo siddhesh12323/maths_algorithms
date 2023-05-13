@@ -14,7 +14,8 @@ class _BisectionState extends State<Bisection> {
   final _aController = TextEditingController();
   final _bController = TextEditingController();
   String output = 'Result will appear here';
-  String iterations = 'Number of iterations will appear here';
+  String iterations = 'No. of iterations will appear here';
+  String timeTaken = "Algorithm's will appear here";
 
   // String calculate(String func, double a, double b, double errorFactor) {
   //   try {
@@ -66,31 +67,45 @@ class _BisectionState extends State<Bisection> {
 
   List<double> bisection(String func, double a, double b,
       {int maxIterations = 1000, double tolerance = 1e-12}) {
+    //final stopwatch = Stopwatch()..start();
     Parser p1 = Parser();
     Expression exp = p1.parse(func);
     ContextModel cm1 = ContextModel();
     ContextModel cm2 = ContextModel();
+    ContextModel cm3 = ContextModel();
+    ContextModel cm4 = ContextModel();
+    cm3.bindVariableName('x', Number(a));
+    cm4.bindVariableName('x', Number(b));
     double c = 0;
     int iter = 0;
-    while ((b - a).abs() > tolerance) {
-      c = (a + b) / 2;
-      cm1.bindVariableName('x', Number(c));
-      if (exp.evaluate(EvaluationType.REAL, cm1).abs() < tolerance) {
-        return [c, iter.toDouble()];
+    if (exp.evaluate(EvaluationType.REAL, cm3) *
+            exp.evaluate(EvaluationType.REAL, cm4) <
+        0) {
+      while ((b - a).abs() > tolerance) {
+        c = (a + b) / 2;
+        cm1.bindVariableName('x', Number(c));
+        if (exp.evaluate(EvaluationType.REAL, cm1).abs() < tolerance) {
+          return [c, iter.toDouble()];
+        }
+        cm2.bindVariableName('x', Number(a));
+        if (exp.evaluate(EvaluationType.REAL, cm1) *
+                exp.evaluate(EvaluationType.REAL, cm2) <
+            0) {
+          b = c;
+        } else {
+          a = c;
+        }
+        iter++;
       }
-      cm2.bindVariableName('x', Number(a));
-      if (exp.evaluate(EvaluationType.REAL, cm1) *
-              exp.evaluate(EvaluationType.REAL, cm2) <
-          0) {
-        b = c;
-      } else {
-        a = c;
-      }
-      iter++;
+      //stopwatch.stop();
+      return [c, iter.toDouble()];
+    } else {
+      //stopwatch.stop();
+      return [-1, 0];
     }
-    return [c, iter.toDouble()];
   }
 
+  List<double> ans = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,12 +192,6 @@ class _BisectionState extends State<Bisection> {
               onPressed: () {
                 setState(() {
                   try {
-                    // output = calculate(
-                    //     _textController.text,
-                    //     double.parse(_aController.text),
-                    //     double.parse(_bController.text),
-                    //     double.parse(_errorController.text));
-                    List<double> ans = [];
                     ans = bisection(
                         _textController.text,
                         double.parse(_aController.text),
@@ -190,7 +199,7 @@ class _BisectionState extends State<Bisection> {
                         tolerance: double.parse(_errorController.text));
                     output = 'Result:- ${ans[0].toString()}';
                     iterations = 'Iterations:- ${ans[1].toInt().toString()}';
-                    //0.000000000000001
+                    //timeTaken = 'Execution Time:- ${ans[2].toString()}';
                   } catch (e) {
                     output = "Please enter double values only";
                   }
@@ -200,15 +209,33 @@ class _BisectionState extends State<Bisection> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              child: Center(child: Text(output)),
+              child: Center(
+                  child: Text(
+                output,
+                style: Theme.of(context).textTheme.headlineSmall,
+              )),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              child: Center(child: Text(iterations)),
+              child: Center(
+                  child: Text(
+                iterations,
+                style: Theme.of(context).textTheme.headlineSmall,
+              )),
             ),
-          )
+          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Container(
+          //     child: Center(
+          //         child: Text(
+          //       timeTaken,
+          //       style: Theme.of(context).textTheme.headlineSmall,
+          //     )),
+          //   ),
+          // )
         ],
       ),
       //),

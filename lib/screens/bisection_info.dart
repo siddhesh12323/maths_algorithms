@@ -40,20 +40,49 @@ class BisectionInfo extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: <Widget>[
-                    //* App theme
-                    ListTile(
-                      title: const Text('Number 1'),
-                      style: Theme.of(context).listTileTheme.style,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                      child: ListTile(
+                        leading: const Text('a.'),
+                        title: const Text(
+                              "Enter only left hand side of the equation e.g. x ^ 2 - x - 1 and not x ^ 2 - x - 1 = 0"),
+                        //title: const Text('Enter only left hand side of the equation e.g. x ^ 2 - x - 1 and not x ^ 2 - x - 1 = 0'),
+                        style: Theme.of(context).listTileTheme.style,
+                        //contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                      ),
                     ),
-                    //* App Font
-                    ListTile(
-                      title: const Text('App Font'),
-                      style: Theme.of(context).listTileTheme.style,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                      child: ListTile(
+                        leading: const Text('b.'),
+                        title: const Text(
+                            'Enter values of a and b such that f(a) x f(b) < 0. If it is not true the result will be -1'),
+                        style: Theme.of(context).listTileTheme.style,
+                      ),
                     ),
-                    
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                      child: ListTile(
+                        leading: const Text('c.'),
+                        title: const Text(
+                            'Enter error factor in decimal format only e.g. 0.000001 and not 10^-6'),
+                        style: Theme.of(context).listTileTheme.style,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                      child: ListTile(
+                        leading: const Text('d.'),
+                        title: const Text(
+                            'The maximum error factor is 0.000000000000001'),
+                        style: Theme.of(context).listTileTheme.style,
+                      ),
+                    ),
                   ],
                 ),
-              )
+             
+              ),
+              
             ]));
   }
 }
