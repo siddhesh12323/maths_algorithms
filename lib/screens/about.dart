@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BisectionInfo extends StatelessWidget {
-  const BisectionInfo({super.key});
+class About extends StatelessWidget {
+  const About({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class BisectionInfo extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(14, 30, 0, 0),
                 child: Text(
-                  'About Bisection Method',
+                  'About Numerical Methods',
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),

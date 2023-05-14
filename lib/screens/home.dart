@@ -10,6 +10,13 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Home'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/about');
+              },
+              icon: const Icon(Icons.info_rounded))
+        ],
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
       ),

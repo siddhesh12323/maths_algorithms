@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
-class Bisection extends StatefulWidget {
-  const Bisection({super.key});
+class RegulaFalsi extends StatefulWidget {
+  const RegulaFalsi({super.key});
 
   @override
-  State<Bisection> createState() => _BisectionState();
+  State<RegulaFalsi> createState() => _RegulaFalsiState();
 }
 
-class _BisectionState extends State<Bisection> {
+class _RegulaFalsiState extends State<RegulaFalsi> {
   final _textController = TextEditingController();
   final _errorController = TextEditingController();
   final _aController = TextEditingController();
@@ -34,7 +34,7 @@ class _BisectionState extends State<Bisection> {
             exp.evaluate(EvaluationType.REAL, cm4) <
         0) {
       while ((b - a).abs() > tolerance) {
-        c = (a + b) / 2;
+        c = ((a * exp.evaluate(EvaluationType.REAL, cm4)) - (b * exp.evaluate(EvaluationType.REAL, cm3)))/(exp.evaluate(EvaluationType.REAL, cm4) - exp.evaluate(EvaluationType.REAL, cm3));
         cm1.bindVariableName('x', Number(c));
         if (exp.evaluate(EvaluationType.REAL, cm1).abs() < tolerance) {
           return [c, iter.toDouble()];
@@ -64,11 +64,11 @@ class _BisectionState extends State<Bisection> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Bisection Method'),
+        title: const Text('Regula Falsi Method'),
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/bisection_info');
+                Navigator.pushNamed(context, '/regula_falsi_info');
               },
               icon: const Icon(Icons.info_rounded))
         ],
