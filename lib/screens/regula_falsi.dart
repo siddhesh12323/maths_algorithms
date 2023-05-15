@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:numerical_methods_mathematics/screens/regula_falsi_info.dart';
 
 class RegulaFalsi extends StatefulWidget {
   const RegulaFalsi({super.key});
@@ -68,7 +69,24 @@ class _RegulaFalsiState extends State<RegulaFalsi> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/regula_falsi_info');
+                //Navigator.pushNamed(context, '/regula_falsi_info');
+                Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: ((context, animation, secondaryAnimation) =>
+                        const RegulaFalsiInfo()),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(0, 1);
+                      const end = Offset.zero;
+                      var curve = Curves.easeIn;
+                      var curveTween = CurveTween(curve: curve);
+                      final tween =
+                          Tween(begin: begin, end: end).chain(curveTween);
+                      final offsetAnimation = animation.drive(tween);
+                      return SlideTransition(
+                        position: offsetAnimation,
+                        child: child,
+                      );
+                    }));
               },
               icon: const Icon(Icons.info_rounded))
         ],

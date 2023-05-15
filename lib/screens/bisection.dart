@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:numerical_methods_mathematics/screens/bisection_info.dart';
 
 class Bisection extends StatefulWidget {
   const Bisection({super.key});
@@ -68,7 +69,24 @@ class _BisectionState extends State<Bisection> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/bisection_info');
+                //Navigator.pushNamed(context, '/bisection_info');
+                Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: ((context, animation, secondaryAnimation) =>
+                        const BisectionInfo()),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(0, 1);
+                      const end = Offset.zero;
+                      var curve = Curves.easeIn;
+                      var curveTween = CurveTween(curve: curve);
+                      final tween =
+                          Tween(begin: begin, end: end).chain(curveTween);
+                      final offsetAnimation = animation.drive(tween);
+                      return SlideTransition(
+                        position: offsetAnimation,
+                        child: child,
+                      );
+                    }));
               },
               icon: const Icon(Icons.info_rounded))
         ],
