@@ -114,6 +114,7 @@ class _BisectionState extends State<Bisection> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   hintText: 'Enter a',
                   border: const OutlineInputBorder(),
@@ -128,6 +129,7 @@ class _BisectionState extends State<Bisection> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   hintText: 'Enter b',
                   border: const OutlineInputBorder(),
@@ -142,6 +144,7 @@ class _BisectionState extends State<Bisection> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   hintText: 'Enter the error factor',
                   border: const OutlineInputBorder(),
