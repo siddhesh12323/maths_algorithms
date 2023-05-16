@@ -17,6 +17,7 @@ class _BisectionState extends State<Bisection> {
   String output = 'Result will appear here';
   String iterations = 'No. of iterations will appear here';
   String timeTaken = "Algorithm's will appear here";
+  
 
   List bisection(String func, double a, double b,
       {int maxIterations = 500, double tolerance = 1e-12}) {
@@ -240,46 +241,47 @@ class _BisectionState extends State<Bisection> {
             //     )),
             //   ),
             // )
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Center(
-                    child: Text(
-                  valuesA,
-                  // style: Theme.of(context).textTheme.headlineSmall,
-                )),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Center(
-                    child: Text(
-                  valuesB,
-                  // style: Theme.of(context).textTheme.headlineSmall,
-                )),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Center(
-                    child: Text(
-                  valuesC,
-                  // style: Theme.of(context).textTheme.headlineSmall,
-                )),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Center(
-                    child: Text(
-                  valuesBADiff,
-                  // style: Theme.of(context).textTheme.headlineSmall,
-                )),
-              ),
-            ),
+            //* Uncomment for each list
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Container(
+            //     child: Center(
+            //         child: Text(
+            //       valuesA,
+            //       // style: Theme.of(context).textTheme.headlineSmall,
+            //     )),
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Container(
+            //     child: Center(
+            //         child: Text(
+            //       valuesB,
+            //       // style: Theme.of(context).textTheme.headlineSmall,
+            //     )),
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Container(
+            //     child: Center(
+            //         child: Text(
+            //       valuesC,
+            //       // style: Theme.of(context).textTheme.headlineSmall,
+            //     )),
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Container(
+            //     child: Center(
+            //         child: Text(
+            //       valuesBADiff,
+            //       // style: Theme.of(context).textTheme.headlineSmall,
+            //     )),
+            //   ),
+            // ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Padding(
