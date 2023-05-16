@@ -180,7 +180,7 @@ class _RegulaFalsiState extends State<RegulaFalsi> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               child: Center(
-                  child: Text(
+                  child: SelectableText(
                 output,
                 style: Theme.of(context).textTheme.headlineSmall,
               )),

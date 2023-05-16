@@ -214,7 +214,7 @@ class _BisectionState extends State<Bisection> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 child: Center(
-                    child: Text(
+                    child: SelectableText(
                   output,
                   style: Theme.of(context).textTheme.headlineSmall,
                 )),
@@ -299,11 +299,11 @@ class _BisectionState extends State<Bisection> {
     List<DataRow> row = [];
     for (int i = 0; i < ans[1].toInt(); i++) {
       row.add(DataRow(cells: [
-        DataCell(Text((i + 1).toString())),
-        DataCell(Text(ans[2][i].toString())),
-        DataCell(Text(ans[3][i].toString())),
-        DataCell(Text(ans[4][i].toString())),
-        DataCell(Text(ans[5][i].toString())),
+        DataCell(SelectableText((i + 1).toString())),
+        DataCell(SelectableText(ans[2][i].toString())),
+        DataCell(SelectableText(ans[3][i].toString())),
+        DataCell(SelectableText(ans[4][i].toString())),
+        DataCell(SelectableText(ans[5][i].toString())),
       ]));
     }
     return row;
