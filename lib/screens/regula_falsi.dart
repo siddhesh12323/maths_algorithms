@@ -17,6 +17,10 @@ class _RegulaFalsiState extends State<RegulaFalsi> {
   String output = 'Result will appear here';
   String iterations = 'No. of iterations will appear here';
   String timeTaken = "Algorithm's will appear here";
+  bool takeApproximate = false;
+  Color buttonNotSelectedColor = Colors.green;
+  Color buttonSelectedColor = Colors.grey;
+  Color buttonColor = Colors.green;
 
   List regulaFalsi(String func, double a, double b,
       {int maxIterations = 500, double tolerance = 1e-12}) {
@@ -71,7 +75,7 @@ class _RegulaFalsiState extends State<RegulaFalsi> {
           a = c;
         }
         valuesListfC.add(exp.evaluate(EvaluationType.REAL, cm1));
-      valuesListC.add(c);
+        valuesListC.add(c);
         iter++;
       }
       //cm6.bindVariableName('x', Number(c));
@@ -152,6 +156,56 @@ class _RegulaFalsiState extends State<RegulaFalsi> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        takeApproximate = !takeApproximate;
+                        if (takeApproximate) {
+                          buttonColor = buttonSelectedColor;
+                        } else {
+                          buttonColor = buttonNotSelectedColor;
+                        }
+                      });
+                      if (takeApproximate) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("The results will be approximate. Please click 'Solve the equation' again!"),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("The results will be accurate. Please click 'Solve the equation' again!"),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                    },
+                    child: Container(
+                      width: 200,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: buttonColor),
+                      // onTap: () {
+                      //   takeApproximate = !takeApproximate;
+                      //   if (takeApproximate) {
+                      //     buttonColor = buttonNotSelectedColor;
+                      //   } else {
+                      //     buttonColor = buttonSelectedColor;
+                      //   }
+                      // },
+                      child: takeApproximate
+                          ? const Center(child: Text('Values approximated!'))
+                          : const Center(
+                              child: Text('Approximate the values?')),
+                    )),
+              ]),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
                 decoration: InputDecoration(
                     hintText: 'Enter the equation',
@@ -219,7 +273,7 @@ class _RegulaFalsiState extends State<RegulaFalsi> {
                           double.parse(_aController.text),
                           double.parse(_bController.text),
                           tolerance: double.parse(_errorController.text));
-                      output = 'Result:- ${ans[0].toString()}';
+                      output = takeApproximate ? 'Result:- ${ans[0].toStringAsFixed(5)}' : 'Result:- ${ans[0].toString()}';
                       iterations = 'Iterations:- ${ans[1].toInt().toString()}';
                       valuesfA = ans[2].toString();
                       valuesfB = ans[3].toString();
@@ -329,14 +383,23 @@ class _RegulaFalsiState extends State<RegulaFalsi> {
   List<DataRow> displayRow(List<dynamic> ans) {
     List<DataRow> row = [];
     for (int i = 0; i < ans[1].toInt(); i++) {
-      row.add(DataRow(cells: [
-        DataCell(SelectableText((i + 1).toString())),
-        DataCell(SelectableText(ans[2][i].toString())),
-        DataCell(SelectableText(ans[3][i].toString())),
-        DataCell(SelectableText(ans[4][i].toString())),
-        DataCell(SelectableText(ans[5][i].toString())),
-        DataCell(SelectableText(ans[6][i].toString())),
-      ]));
+      row.add(takeApproximate
+          ? DataRow(cells: [
+              DataCell(SelectableText((i + 1).toString())),
+              DataCell(SelectableText(ans[2][i].toStringAsFixed(5))),
+              DataCell(SelectableText(ans[3][i].toStringAsFixed(5))),
+              DataCell(SelectableText(ans[4][i].toStringAsFixed(5))),
+              DataCell(SelectableText(ans[5][i].toStringAsFixed(5))),
+              DataCell(SelectableText(ans[6][i].toStringAsFixed(5))),
+            ])
+          : DataRow(cells: [
+              DataCell(SelectableText((i + 1).toString())),
+              DataCell(SelectableText(ans[2][i].toString())),
+              DataCell(SelectableText(ans[3][i].toString())),
+              DataCell(SelectableText(ans[4][i].toString())),
+              DataCell(SelectableText(ans[5][i].toString())),
+              DataCell(SelectableText(ans[6][i].toString()))
+            ]));
     }
     return row;
   }

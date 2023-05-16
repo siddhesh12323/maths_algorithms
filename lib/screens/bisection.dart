@@ -17,7 +17,10 @@ class _BisectionState extends State<Bisection> {
   String output = 'Result will appear here';
   String iterations = 'No. of iterations will appear here';
   String timeTaken = "Algorithm's will appear here";
-  
+  bool takeApproximate = false;
+  Color buttonNotSelectedColor = Colors.green;
+  Color buttonSelectedColor = Colors.grey;
+  Color buttonColor = Colors.green;
 
   List bisection(String func, double a, double b,
       {int maxIterations = 500, double tolerance = 1e-12}) {
@@ -87,7 +90,9 @@ class _BisectionState extends State<Bisection> {
   String valuesB = '';
   String valuesBADiff = '';
   List<DataRow> row1 = [];
-  List<DataColumn> column1 = [const DataColumn(label: Text('')),];
+  List<DataColumn> column1 = [
+    const DataColumn(label: Text('')),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,6 +132,57 @@ class _BisectionState extends State<Bisection> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        takeApproximate = !takeApproximate;
+                        if (takeApproximate) {
+                          buttonColor = buttonSelectedColor;
+                        } else {
+                          buttonColor = buttonNotSelectedColor;
+                        }
+                      });
+                      if (takeApproximate) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("The results will be approximate. Please click 'Solve the equation' again!"),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("The results will be accurate. Please click 'Solve the equation' again!"),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                    },
+                    child: Container(
+                      width: 200,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: buttonColor),
+                      // onTap: () {
+                      //   takeApproximate = !takeApproximate;
+                      //   if (takeApproximate) {
+                      //     buttonColor = buttonNotSelectedColor;
+                      //   } else {
+                      //     buttonColor = buttonSelectedColor;
+                      //   }
+                      // },
+                      child: takeApproximate
+                          ? const Center(child: Text('Values approximated!'))
+                          : const Center(
+                              child: Text('Approximate the values?')),
+                    )
+                    ),
+              ]),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
@@ -196,7 +252,7 @@ class _BisectionState extends State<Bisection> {
                           double.parse(_aController.text),
                           double.parse(_bController.text),
                           tolerance: double.parse(_errorController.text));
-                      output = 'Result:- ${ans[0].toString()}';
+                      output = takeApproximate ? 'Result:- ${ans[0].toStringAsFixed(5)}' : 'Result:- ${ans[0].toString()}';
                       iterations = 'Iterations:- ${ans[1].toInt().toString()}';
                       valuesA = ans[2].toString();
                       valuesB = ans[3].toString();
@@ -286,8 +342,7 @@ class _BisectionState extends State<Bisection> {
               scrollDirection: Axis.horizontal,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: DataTable(columns: column1,
-                 rows: row1),
+                child: DataTable(columns: column1, rows: row1),
               ),
             )
           ],
@@ -300,13 +355,21 @@ class _BisectionState extends State<Bisection> {
   List<DataRow> displayRow(List<dynamic> ans) {
     List<DataRow> row = [];
     for (int i = 0; i < ans[1].toInt(); i++) {
-      row.add(DataRow(cells: [
-        DataCell(SelectableText((i + 1).toString())),
-        DataCell(SelectableText(ans[2][i].toString())),
-        DataCell(SelectableText(ans[3][i].toString())),
-        DataCell(SelectableText(ans[4][i].toString())),
-        DataCell(SelectableText(ans[5][i].toString())),
-      ]));
+      row.add(takeApproximate
+          ? DataRow(cells: [
+              DataCell(SelectableText((i + 1).toString())),
+              DataCell(SelectableText(ans[2][i].toStringAsFixed(5))),
+              DataCell(SelectableText(ans[3][i].toStringAsFixed(5))),
+              DataCell(SelectableText(ans[4][i].toStringAsFixed(5))),
+              DataCell(SelectableText(ans[5][i].toStringAsFixed(5))),
+            ])
+          : DataRow(cells: [
+              DataCell(SelectableText((i + 1).toString())),
+              DataCell(SelectableText(ans[2][i].toString())),
+              DataCell(SelectableText(ans[3][i].toString())),
+              DataCell(SelectableText(ans[4][i].toString())),
+              DataCell(SelectableText(ans[5][i].toString()))
+            ]));
     }
     return row;
   }

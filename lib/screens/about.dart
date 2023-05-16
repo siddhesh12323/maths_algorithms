@@ -45,7 +45,7 @@ class About extends StatelessWidget {
                       child: ListTile(
                         leading: const Text('a.'),
                         title: const Text(
-                              "Enter only left hand side of the equation e.g. x ^ 2 - x - 1 and not x ^ 2 - x - 1 = 0"),
+                              "If the function is continuous and the convergence speed is important then use Regula Falsi method"),
                         //title: const Text('Enter only left hand side of the equation e.g. x ^ 2 - x - 1 and not x ^ 2 - x - 1 = 0'),
                         style: Theme.of(context).listTileTheme.style,
                         //contentPadding: const EdgeInsets.symmetric(horizontal: 10),
@@ -56,25 +56,7 @@ class About extends StatelessWidget {
                       child: ListTile(
                         leading: const Text('b.'),
                         title: const Text(
-                            'Enter values of a and b such that f(a) x f(b) < 0. If it is not true the result will be -1'),
-                        style: Theme.of(context).listTileTheme.style,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                      child: ListTile(
-                        leading: const Text('c.'),
-                        title: const Text(
-                            'Enter error factor in decimal format only e.g. 0.000001 and not 10^-6'),
-                        style: Theme.of(context).listTileTheme.style,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                      child: ListTile(
-                        leading: const Text('d.'),
-                        title: const Text(
-                            'The minimum error factor is 0.000000000000001'),
+                            "If the function does not change sign between the two endpoints of an interval or if simplicity is desired then use Bisection method"),
                         style: Theme.of(context).listTileTheme.style,
                       ),
                     ),
