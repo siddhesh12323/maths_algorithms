@@ -3,6 +3,7 @@ import 'package:numerical_methods_mathematics/screens/about.dart';
 import 'package:numerical_methods_mathematics/screens/bisection.dart';
 import 'package:numerical_methods_mathematics/screens/newton_raphson.dart';
 import 'package:numerical_methods_mathematics/screens/regula_falsi.dart';
+import 'package:numerical_methods_mathematics/screens/secant.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -123,6 +124,32 @@ class HomePage extends StatelessWidget {
                     }));
                   },
                   child: const Text('Newton Raphson Method')),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                  style: Theme.of(context).textButtonTheme.style,
+                  onPressed: () {
+                    //Navigator.pushNamed(context, '/bisection_method');
+                    Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: ((context, animation, secondaryAnimation) =>
+                        const Secant()),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(0, 1);
+                      const end = Offset.zero;
+                      var curve = Curves.easeIn;
+                      var curveTween = CurveTween(curve: curve);
+                      final tween =
+                          Tween(begin: begin, end: end).chain(curveTween);
+                      final offsetAnimation = animation.drive(tween);
+                      return SlideTransition(
+                        position: offsetAnimation,
+                        child: child,
+                      );
+                    }));
+                  },
+                  child: const Text('Secant Method')),
             ),
           ],
         ),
