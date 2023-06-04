@@ -99,7 +99,7 @@ class _SecantState extends State<Secant> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Bisection Method'),
+        title: const Text('Secant Method'),
         actions: [
           IconButton(
               onPressed: () {

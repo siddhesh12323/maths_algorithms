@@ -33,18 +33,19 @@ class MyApp extends StatelessWidget {
       }
       return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Numerical Methods',
+        title: 'Mathematics 3',
         theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
         darkTheme: ThemeData.dark(useMaterial3: true),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => const HomePage(),
-          // '/about':(context) => const About(),
-          // '/bisection_method': (context) => const Bisection(),
-          // '/bisection_info': (context) => const BisectionInfo(),
-          // '/regula_falsi_method': (context) => const RegulaFalsi(),
-          // '/regula_falsi_info':(context) => const RegulaFalsiInfo(),
-        },
+        home: const HomePage(),
+        // initialRoute: '/',
+        // routes: {
+        //   '/': (context) => const HomePage(),
+        //   // '/about':(context) => const About(),
+        //   // '/bisection_method': (context) => const Bisection(),
+        //   // '/bisection_info': (context) => const BisectionInfo(),
+        //   // '/regula_falsi_method': (context) => const RegulaFalsi(),
+        //   // '/regula_falsi_info':(context) => const RegulaFalsiInfo(),
+        // },
       );
       //If the function is continuous and the convergence speed is important, the Regula Falsi method may be more appropriate. If the function does not change sign between the two endpoints of an interval or if simplicity is desired, the Bisection method may be a better choice.
     });
